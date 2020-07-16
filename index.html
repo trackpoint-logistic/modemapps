@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <style>
+      .map {
+        width: 100%;
+        height:400px;
+        display: block;
+      }
+    </style>
+    <script src="build/ol.js"></script>
+    
+    <template id="wc-ol-map">
+      <style>
+        @import 'node_modules/ol/ol.css';
+      </style>
+      <div id="map" style="width:100%; height:100%">
+      </div>
+    </template>
+
+  </head>
+  <body>
+    <ol-map id="map" class="map">
+      <ol-layer-osm></ol-layer-osm>
+    </ol-map>
+    <div/>
+<!--     <script src="index.js"></script> -->
+  </body>
+</html>
