@@ -1,6 +1,6 @@
 {
   "name": "webcomponents-extended-openlayer",
-  "version": "4",
+  "version": "1.0.0",
   "license": "MIT",
   "devDependencies": {
     "ol": "6.3.1",
@@ -13,6 +13,6 @@
     "webpack": "4.41.5"
   },
   "scripts": {
-    "build": "yarn gulp"
+    "build": "gulp"
   }
 }
