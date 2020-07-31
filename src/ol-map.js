@@ -28,4 +28,4 @@ class OLMap extends HTMLElement {
 	}
 }
 
-customElements.define('ol-map', OLMap);
+export default OLMap;

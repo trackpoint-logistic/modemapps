@@ -9,22 +9,20 @@
         display: block;
       }
     </style>
+
     <script src="build/ol.js"></script>
-    
-    <template id="wc-ol-map">
-      <style>
-        @import 'node_modules/ol/ol.css';
-      </style>
-      <div id="map" style="width:100%; height:100%">
-      </div>
-    </template>
+    <include src="build/ol.html"/>
 
   </head>
+
   <body>
     <ol-map id="map" class="map">
+
+      <select style="position:absolute;right:15px;top:15px;z-index:999" slot="map-surface" class="x-dropdown" style="width:100%;">
+          <option>Maptiler CLOUD</option>
+       </select>
+
       <ol-layer-osm></ol-layer-osm>
     </ol-map>
-    <div/>
-<!--     <script src="index.js"></script> -->
   </body>
 </html>

@@ -67,7 +67,6 @@ const openlayer = function () {
 var html = function () {
 	const stream = new Transform({ objectMode: true });
 
-
 	stream._transform = function (file, enc, callback) {
 
 		if (file.isNull()) {

@@ -17,4 +17,5 @@ class OLLayerOSM extends HTMLElement {
 	}
 }
 
-customElements.define('ol-layer-osm', OLLayerOSM);
+
+export default OLLayerOSM;

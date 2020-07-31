@@ -13,6 +13,7 @@
     "webpack": "4.41.5"
   },
   "scripts": {
-    "build": "gulp"
+    "build": "gulp",
+    "dev": "php -S 127.0.0.1:8080 index.php"
   }
 }
