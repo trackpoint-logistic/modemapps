@@ -14,6 +14,6 @@
   },
   "scripts": {
     "build": "gulp",
-    "dev": "php -S 127.0.0.1:8080 index.php"
+    "server": "php -S 0.0.0.0:8080"
   }
 }
