@@ -10,31 +10,65 @@ class OLLayerMarker extends HTMLElement {
 
 		this.source = new SourceVector({features: []});
 
-
-		if(this.isClustered()){
+		if(this.getClusteAttribute()){
 			this.layer = new LayerVector({
-				visible: true,
+				visible: getVisibleAttribute(),
 				source: new SourceCluster({
-					distance:35,
+					distance: this.getDistanceAttribute(),
 					source: this.source
 				})
 			});
 		}else{
 			this.layer = new LayerVector({
-				visible: true,
+				visible: this.getVisibleAttribute(),
 				source: this.source
 			});
 		}
 
 	}
 
-	isClustered(){
-		const clustered = this.getAttribute('clustered') || '';
+	getVisibleAttribute(){
+		const visible = this.getAttribute('visible') || '';
+		return visible.toLowerCase() == 'true';
+	}
 
-		console.log('clustered:'+clustered);
+	getClusteAttribute(){
+		const clustered = this.getAttribute('clustered') || '';
 		return clustered.toLowerCase() == 'true';
 	}
 
+	getDistanceAttribute(){
+		const distance = this.getAttribute('distance');
+		if(Number.isInteger(distance)){
+			return +distance;
+		}
+
+		return 35;
+	}
+
+	setCenter(center){
+		this.getMap().getView().setCenter(center);
+	}
+
+	fit(extent){
+		this.getMap().fit(extent);
+	}
+
+	fitBySourcetExtent(){
+		this.fit(this.source.getExtent());
+	}
+
+	addFeatures(features){
+		this.source.addFeatures(features);
+	}
+
+	getVisible(){
+		return this.layer.getVisible();
+	}
+
+	setVisible(visible){
+		this.layer.setVisible(visible);
+	}
 
 	getSource(){
 		return this.source;
@@ -44,10 +78,12 @@ class OLLayerMarker extends HTMLElement {
 		return this.layer;
 	}
 
-	connectedCallback(){
-		const map = this.parentElement.getMap();
+	getMap(){
+		return this.parentElement.getMap();
+	}
 
-		map.addLayer(this.layer);
+	connectedCallback(){
+		this.getMap().addLayer(this.layer);
 	}
 }
 
