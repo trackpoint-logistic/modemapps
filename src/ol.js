@@ -9,8 +9,10 @@ import OLMap from './ol-map';
 import OLLayerOSM from './ol-layer-osm';
 import OLLayerMarker from './ol-layer-marker';
 
+import Feature from 'ol/Feature.js';
+import Point from 'ol/geom/Point.js';
 
-let ol = {};
+const ol = {};
 
 ol.fromLonLat = fromLonLat;
 
@@ -27,6 +29,9 @@ ol.source = {
 ol.layer = {
 	Vector: LayerVector
 };
+
+ol.Feature = Feature;
+ol.Point = Point;
 
 customElements.define('ol-layer-marker', OLLayerMarker);
 customElements.define('ol-layer-osm', OLLayerOSM);

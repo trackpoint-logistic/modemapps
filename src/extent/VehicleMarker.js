@@ -17,12 +17,12 @@ import GeometryCollection from 'ol/geom/GeometryCollection.js';
  * @api
  */
 const MarkerType = {
-	"YELLOW": "data/mark-yellow.png",
-	"RED": "data/mark-red.png",
-	"MAGENTA": "data/mark-magenta.png",
-	"GREEN": "data/mark-green.png",
-	"BLUE": "data/mark-blue.png",
-	"BLACK": "data/mark-black.png"
+	"YELLOW": "ol/mark-yellow.png",
+	"RED": "ol/mark-red.png",
+	"MAGENTA": "ol/mark-magenta.png",
+	"GREEN": "ol/mark-green.png",
+	"BLUE": "ol/mark-blue.png",
+	"BLACK": "ol/mark-black.png"
 };
 
 
@@ -100,23 +100,20 @@ export default class VehicleMarker extends Feature {
 		 * @type {LineString}
 		 */
 		this.tail_ = null;
-		let geometry;
 
 		if (this.displayTail_ == true) {
 			this.tail_ = new LineString([ll]);
 
-			geometry = new GeometryCollection([
+			super.setGeometry(
+				new GeometryCollection([
 				this.point_,
 				this.tail_
-			]);
+				])
+			);
 
 		} else {
-			geometry = {
-				geometry: this.point_
-			};
+			super.setGeometry(this.point_);
 		}
-
-		super.setGeometry(geometry);
 
 		this.stylize();
 	}
