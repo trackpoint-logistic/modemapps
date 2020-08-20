@@ -18,7 +18,7 @@ export default class TankMarker extends Feature {
 
 	constructor(opt_options) {
 		super();
-		
+
 		/**
 		 * @nocollapse
 		 */
@@ -54,7 +54,7 @@ export default class TankMarker extends Feature {
 		this.pin_ = new TankPin({
 			'anchor':  (options['anchor']       !== undefined ? options['anchor'] : [22, 52]),
 			'opacity': 1,
-			'src':     'data/tank.png',
+			'src':     'ol/tank.png',
 			'capacity': (options['capacity'] !== undefined ? options['capacity'] : 1),
 			'level': (options['level'] !== undefined ? options['level'] : 0)
 		});
