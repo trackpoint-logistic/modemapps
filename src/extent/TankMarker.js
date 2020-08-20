@@ -17,6 +17,8 @@ import Point from 'ol/geom/Point.js';
 export default class TankMarker extends Feature {
 
 	constructor(opt_options) {
+		super();
+		
 		/**
 		 * @nocollapse
 		 */
@@ -57,9 +59,7 @@ export default class TankMarker extends Feature {
 			'level': (options['level'] !== undefined ? options['level'] : 0)
 		});
 
-		super({
-			geometry: this.point_
-		});
+		super.setGeometry(this.point_);
 
 		this.stylize();
 	}

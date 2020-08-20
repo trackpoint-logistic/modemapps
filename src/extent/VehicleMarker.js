@@ -35,11 +35,15 @@ const MarkerType = {
 export default class VehicleMarker extends Feature {
 
 	constructor(opt_options) {
+
+		super();
+		
 		/**
 		 * @nocollapse
 		 */
 		const options = opt_options || {};
 
+		const ll = (options['ll'] !== undefined ? options['ll'] : [0, 0]);
 
 
 		/**
@@ -66,7 +70,7 @@ export default class VehicleMarker extends Feature {
 		 */
 		this.displayTail_ = (options['tail'] !== undefined ? options['tail'] : false);
 
-		const ll = (options['ll'] !== undefined ? options['ll'] : [0, 0]);
+
 
 		/**
 		 * @private
@@ -112,7 +116,7 @@ export default class VehicleMarker extends Feature {
 			};
 		}
 
-		super(geometry);
+		super.setGeometry(geometry);
 
 		this.stylize();
 	}
