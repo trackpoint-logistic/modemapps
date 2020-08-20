@@ -49,8 +49,7 @@
 				//.addFeatures([feature]);
 				const source = layer.getSource();
 				source.addFeature(vehicle);
-
-				console.log(source);
+				layer.fitBySourcetExtent();
 
 
 			});

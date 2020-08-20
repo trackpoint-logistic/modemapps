@@ -51,7 +51,7 @@ class OLLayerMarker extends HTMLElement {
 	}
 
 	fit(extent){
-		this.getMap().fit(extent);
+		this.getMap().getView().fit(extent);
 	}
 
 	fitBySourcetExtent(){
