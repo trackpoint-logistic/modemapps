@@ -11,11 +11,24 @@ class OLMap extends HTMLElement {
 		shadow.appendChild(tempalte.cloneNode(true));
 
 		this.map = new Map({
+			target: shadow.getElementById('map'),
+
+			loadTilesWhileAnimating: false,
+			loadTilesWhileInteracting: false,
+			renderer: 'canvas',
+
 			view: new View({
+				constrainResolution: false,
+				smoothExtentConstraint: false,
+				smoothResolutionConstraint: false,
+
+				maxZoom: 20,
+				minZoom: 3,
+				zoom: 4,
+
 				center: [0, 0],
-				zoom: 2
 			}),
-			target: shadow.getElementById('map')
+
 		});
 	}
 

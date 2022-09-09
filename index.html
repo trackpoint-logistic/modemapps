@@ -3,11 +3,12 @@
 	<head>
 
 		<style>
-		.map {
-			width: 100%;
-			height:400px;
-			display: block;
-		}
+			.map {
+				width: 100%;
+				height:100%;
+				display: block;
+				position: absolute;
+			}
 		</style>
 
 		<script src="build/ol.js"></script>
@@ -18,19 +19,29 @@
 	<body>
 		<ol-map id="map" class="map">
 
-		<select style="position:absolute;right:15px;top:15px;z-index:999" slot="map-surface" class="x-dropdown" style="width:100%;">
-			<option>Maptiler CLOUD</option>
-		</select>
+			<select style="position:absolute;right:15px;top:15px;z-index:999" slot="map-viewport" class="x-dropdown" style="width:100%;">
+				<option>Maptiler CLOUD</option>
+			</select>
 
-		<ol-layer-osm></ol-layer-osm>
-		<ol-layer-marker id="marker"></ol-layer-marker>
+			<ol-tile-osm></ol-tile-osm>
+
+			<ol-layer-vector id="vector"/>
 
 		</ol-map>
 
 		<script>
 			document.addEventListener("DOMContentLoaded", function(){
-				const layer = document.getElementById('marker');
+				const layer = document.getElementById('vector').getLayer()
+
+				const dataset = new ol.source.Vector({features: []});
+
+				layer.setSource(new ol.source.Cluster({
+					distance: 35,
+					source: dataset
+				}));
 				layer.setVisible(true);
+
+				const features = [];
 				const vehicle = new ol.trackpoint.VehicleMarker({
 					type:         'BLACK',
 					displayArrow: true,
@@ -40,17 +51,9 @@
 					tail:         true
 				});
 
+				features.push(vehicle)
 
-				const feature = new ol.Feature({
-					geometry: new ol.Point([0, 0])
-				})
-			 
-				//layer.addFeatures([vehicle]);
-				//.addFeatures([feature]);
-				const source = layer.getSource();
-				source.addFeature(vehicle);
-				layer.fitBySourcetExtent();
-
+				dataset.addFeatures(features);
 
 			});
 		</script>

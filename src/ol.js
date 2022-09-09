@@ -5,9 +5,18 @@ import SourceCluster from './extent/Cluster.js';
 
 import TankMarker from './extent/TankMarker';
 import VehicleMarker from './extent/VehicleMarker';
+
+
 import OLMap from './ol-map';
-import OLLayerOSM from './ol-layer-osm';
-import OLLayerMarker from './ol-layer-marker';
+
+import OLTileLayerOSM from './ol-tile-layer-osm';
+import OLTileLayerMaptiler from './ol-tile-layer-maptiler';
+
+import OLOverlay from './ol-overlay';
+
+import OLLayerVector from './ol-layer-vector';
+
+
 
 import Feature from 'ol/Feature.js';
 import Point from 'ol/geom/Point.js';
@@ -33,8 +42,14 @@ ol.layer = {
 ol.Feature = Feature;
 ol.Point = Point;
 
-customElements.define('ol-layer-marker', OLLayerMarker);
-customElements.define('ol-layer-osm', OLLayerOSM);
 customElements.define('ol-map', OLMap);
+
+customElements.define('ol-tile-osm', OLTileLayerOSM);
+customElements.define('ol-tile-maptiler', OLTileLayerMaptiler);
+
+customElements.define('ol-overlay', OLOverlay);
+
+customElements.define('ol-layer-vector', OLLayerVector);
+
 
 export default ol;
