@@ -31,7 +31,8 @@
 
 		<script>
 			document.addEventListener("DOMContentLoaded", function(){
-				const layer = document.getElementById('vector').getLayer()
+				const element = document.getElementById('vector')
+				const layer = element.getLayer()
 
 				const dataset = new ol.source.Vector({features: []});
 
@@ -54,6 +55,21 @@
 				features.push(vehicle)
 
 				dataset.addFeatures(features);
+
+
+
+				const map = element.getMap();
+
+				map.on("click", function(event) {
+					const is_feature = map.forEachFeatureAtPixel(event.pixel, function(feature, layer) {
+
+						if (layer) {
+							return true;
+						}
+					});
+
+					console.log(is_feature);
+				});
 
 			});
 		</script>

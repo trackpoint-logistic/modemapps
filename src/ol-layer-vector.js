@@ -18,7 +18,7 @@ class OLLayerVector extends HTMLElement {
     }
 
     getMap(){
-        return this.layer.getMap()
+        return this.parentElement.getMap()
     }
 
     connectedCallback(){

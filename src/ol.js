@@ -25,10 +25,10 @@ const ol = {};
 
 ol.fromLonLat = fromLonLat;
 
-ol.trackpoint = {};
-
-ol.trackpoint.TankMarker = TankMarker;
-ol.trackpoint.VehicleMarker = VehicleMarker;
+ol.trackpoint = {
+	TankMarker: TankMarker,
+	VehicleMarker: VehicleMarker
+};
 
 ol.source = {
 	Vector: SourceVector,
@@ -39,8 +39,8 @@ ol.layer = {
 	Vector: LayerVector
 };
 
-ol.Feature = Feature;
-ol.Point = Point;
+//ol.Feature = Feature;
+//ol.Point = Point;
 
 customElements.define('ol-map', OLMap);
 

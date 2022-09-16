@@ -9,13 +9,16 @@ const concat = require('gulp-concat');
 const path = require('path')
 
 const WEBPACK_OPTION = {
-	devtool: 'source-map',
+	//devtool: 'source-map',
 	mode: 'production',
+	optimization: {
+		concatenateModules: true,
+	},
 	output: {
 		path: path.resolve('./build'),
 		filename: 'ol.js',
 		library: 'ol',
-		libraryTarget: 'umd',
+		libraryTarget: 'window',
 		libraryExport: 'default'
 	}
 };
