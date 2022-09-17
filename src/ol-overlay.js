@@ -4,16 +4,16 @@ class OLOverlay extends HTMLElement {
     constructor() {
         super();
 
-        const prototype = Object.assign(
+        const options = Object.assign(
             {},
-            (JSON.parse(this.getAttribute('prototype')) || {}),
+            (JSON.parse(this.getAttribute('options')) || {}),
             {
                 element: this
             });
 
         this.removeAttribute('prototype');
 
-        this.overlay = new Overlay(prototype);
+        this.overlay = new Overlay(options);
     }
 
     setPosition(position) {
