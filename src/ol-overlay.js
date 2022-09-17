@@ -16,6 +16,8 @@ class OLOverlay extends HTMLElement {
             return;
         }
 
+        this.getOverlayContainer().classList.add('ol-popup');
+
         const fragment = document.createDocumentFragment();
 
         while(this.firstElementChild){
