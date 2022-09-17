@@ -83,15 +83,36 @@ export default class VehicleMarker extends Feature {
 		 * @type {Pin}
 		 */
 		this.pin_ = new VehiclePin({
-			'anchor': (options['anchor'] !== undefined ? options['anchor'] : [29, 59]),
+			'anchor': options['anchor'] !== undefined
+				? options['anchor']
+				: [29, 59],
+
 			'opacity': 1,
 			'src': MarkerType[this.type_],
-			'direction': (options['direction'] !== undefined ? options['direction'] : 0),
-			'displayArrow': (options['displayArrow'] !== undefined ? options['displayArrow'] : true),
-			'arrowColor': (options['arrowColor'] !== undefined ? options['arrowColor'] : "#00650c"),
-			'displayLabel': (options['displayLabel'] !== undefined ? options['displayLabel'] : true),
-			'label': (options['label'] !== undefined ? options['label'] : ""),
-			'labelColor': (options['labelColor'] !== undefined ? options['labelColor'] : "#00650c")
+
+			'direction': options['direction'] !== undefined
+				? options['direction']
+				: 0,
+
+			'displayArrow': options['displayArrow'] !== undefined
+				? options['displayArrow']
+				: true,
+
+			'arrowColor': options['arrowColor'] !== undefined
+				? options['arrowColor']
+				: "#00650c",
+
+			'displayLabel': options['displayLabel'] !== undefined
+				? options['displayLabel']
+				: true,
+
+			'label': options['label'] !== undefined
+				? options['label']
+				: "",
+
+			'labelColor': options['labelColor'] !== undefined
+				? options['labelColor']
+				: "#00650c"
 		});
 
 
