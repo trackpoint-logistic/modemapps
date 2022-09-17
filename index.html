@@ -11,7 +11,7 @@
 			}
 		</style>
 
-		<script src="build/ol.js"></script>
+		<script src="build/ol.js" defer></script>
 		<include src="build/ol.html"/>
 
 	</head>
@@ -26,7 +26,9 @@
 			<ol-tile-osm></ol-tile-osm>
 
 			<ol-layer-vector id="vector"/>
-
+			<ol-overlay id="overlay">
+				Some kets
+			</ol-overlay>
 		</ol-map>
 
 		<script>
@@ -73,8 +75,9 @@
 
 				map.on("click", function(event) {
 					const is_feature = map.forEachFeatureAtPixel(event.pixel, function(feature, layer) {
-
 						if (layer) {
+							map.getOverlayById('test').setPosition(ol.fromLonLat([24.171599960947447, 56.97455965351052]));
+							//document.getElementById('overlay')
 							const extent = feature.getGeometry().getExtent();
 
 							map.getView().fit(extent, {

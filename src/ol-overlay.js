@@ -4,16 +4,17 @@ class OLOverlay extends HTMLElement {
     constructor() {
         super();
 
-        const options = Object.assign(
-            {},
-            (JSON.parse(this.getAttribute('options')) || {}),
-            {
-                element: this
-            });
+        this.map = this.parentElement.getMap();
 
-        this.removeAttribute('prototype');
+        this.overlay = new Overlay({
+            element: this
+        });
 
-        this.overlay = new Overlay(options);
+        this.map.addOverlay(this.overlay);
+    }
+
+    setProperties(properties){
+        this.overlay.setProperties(properties, true);
     }
 
     setPosition(position) {
@@ -22,12 +23,6 @@ class OLOverlay extends HTMLElement {
 
     close(){
         this.overlay.setPosition(undefined);
-    }
-
-    connectedCallback(){
-        const map = this.parentElement.getMap();
-
-        map.addLayer(this.overlay);
     }
 
 }
