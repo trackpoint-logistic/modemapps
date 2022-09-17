@@ -3,13 +3,20 @@ import Overlay from 'ol/Overlay';
 class OLOverlay extends HTMLElement {
     constructor() {
         super();
-
-        this.map = this.parentElement.getMap();
         this.overlay = new Overlay({});
-        this.map.addOverlay(this.overlay);
     }
 
     connectedCallback(){
+        if (this.isConnected == false) {
+            return;
+        }
+
+        if(this.overlay.getElement()){
+            return;
+        }
+
+        const map = this.parentElement.getMap();
+        map.addOverlay(this.overlay);
         this.overlay.setElement(this);
     }
 

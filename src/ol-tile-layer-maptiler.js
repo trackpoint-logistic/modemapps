@@ -31,6 +31,10 @@ class OLTileLayerMaptiler extends HTMLElement {
     }
 
     connectedCallback(){
+        if (this.isConnected == false) {
+            return;
+        }
+
         const map = this.parentElement.getMap();
 
         map.addLayer(this.layer);

@@ -27,8 +27,11 @@ class OLTileLayerOSM extends HTMLElement {
 	}
 
 	connectedCallback(){
-		const map = this.parentElement.getMap();
+		if (this.isConnected == false) {
+			return;
+		}
 
+		const map = this.parentElement.getMap();
 		map.addLayer(this.layer);
 	}
 }
