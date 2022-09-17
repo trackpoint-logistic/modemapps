@@ -3,13 +3,8 @@ import Icon from 'ol/style/Icon.js';
 
 export default class VehiclePin extends Icon {
 
-	//ol.trackpoint. = function(options){
 	constructor(options) {
 		const opt = options || {};
-
-/* 		if(opt['anchor'] === undefined){
-			opt['anchor'] = [28, 30];
-		} */
 
 		super(opt);
 
@@ -17,43 +12,57 @@ export default class VehiclePin extends Icon {
 		 * @private
 		 * @type {number}
 		 */
-		this.direction_ = (opt['direction'] !== undefined ? opt['direction'] : 0);
+		this.direction_ = opt['direction'] !== undefined
+			? Number(opt['direction'])
+			: 0;
 
 		/**
 		 * @private
 		 * @type {boolean}
 		 */
-		this.visibility_ = (opt['visibility'] !== undefined ? opt['visibility'] : true);
+		this.visibility_ = opt['visibility'] !== undefined
+			? Boolean(opt['visibility'])
+			: true;
 
 		/**
 		 * @private
 		 * @type {boolean}
 		 */
-		this.displayArrow_ = (opt['displayArrow'] !== undefined ? opt['displayArrow'] : true);
+		this.displayArrow_ = opt['displayArrow'] !== undefined
+			? Boolean(opt['displayArrow'])
+			: true;
 
 		/**
 		 * @private
 		 * @type {string}
 		 */
-		this.arrowColor_ = (opt['arrowColor'] !== undefined ? opt['arrowColor'] : "#00650c");
+		this.arrowColor_ = opt['arrowColor'] !== undefined
+			? String(opt['arrowColor'])
+			: "#00650c";
 
 		/**
 		 * @private
 		 * @type {boolean}
 		 */
-		this.displayLabel_ = (opt['displayLabel'] !== undefined ? opt['displayLabel'] : true);
+		this.displayLabel_ = opt['displayLabel'] !== undefined
+			? Boolean(opt['displayLabel'])
+			: true;
 
 		/**
 		 * @private
 		 * @type {string}
 		 */
-		this.label_ = (opt['label'] !== undefined ? opt['label'] : "");
+		this.label_ = opt['label'] !== undefined
+			? String(opt['label'])
+			: "";
 
 		/**
 		 * @private
 		 * @type {string}
 		 */
-		this.labelColor_ = (opt['labelColor'] !== undefined ? opt['labelColor'] : "#00650c");
+		this.labelColor_ = opt['labelColor'] !== undefined
+			? String(opt['labelColor'])
+			: "#00650c";
 
 		/**
 		 * @private
@@ -67,7 +76,9 @@ export default class VehiclePin extends Icon {
 		 * @private
 		 * @type {Array.<number>}
 		 */
-		this.anchor_ = (opt['anchor'] !== undefined ? opt['anchor'] : [28, 30]);
+		this.anchor_ = opt['anchor'] !== undefined
+			? opt['anchor']
+			: [28, 30];
 
 		/**
 		 * @private
@@ -120,7 +131,7 @@ export default class VehiclePin extends Icon {
 	 * @inheritDoc
 	 */
 	setDisplayArrow(v) {
-		this.displayArrow_ = v;
+		this.displayArrow_ = Boolean(v);
 		this.drawed_ = false;
 	};
 
@@ -128,7 +139,7 @@ export default class VehiclePin extends Icon {
 	 * @inheritDoc
 	 */
 	setDisplayLabel(v) {
-		this.displayLabel_ = v;
+		this.displayLabel_ = Boolean(v);
 		this.drawed_ = false;
 	};
 
@@ -136,7 +147,7 @@ export default class VehiclePin extends Icon {
 	 * @inheritDoc
 	 */
 	setLabel(t) {
-		this.label_ = t;
+		this.label_ = String(t);
 		this.drawed_ = false;
 	};
 
@@ -151,7 +162,7 @@ export default class VehiclePin extends Icon {
 	 * @inheritDoc
 	 */
 	setDirection(d) {
-		this.direction_ = d;
+		this.direction_ = Number(d);
 		this.drawed_ = false;
 	};
 
@@ -164,10 +175,14 @@ export default class VehiclePin extends Icon {
 	 */
 	draw(pixelRatio) {
 
-
 		const context_ = this.canvas_.getContext('2d');
 
-		context_.clearRect(0, 0, 56, 60);
+		context_.clearRect(
+			0,
+			0,
+			56,
+			60);
+
 		context_.strokeStyle = this.arrowColor_;
 		context_.fillStyle = this.arrowColor_;
 		context_.lineWidth = 1;
