@@ -4,9 +4,12 @@
 
 import BaseCluster from 'ol/source/Cluster.js';
 
-import { getUid } from 'ol/util.js';
-
-import { buffer, createEmpty, createOrUpdateFromCoordinate } from 'ol/extent.js';
+import {
+	buffer,
+	createEmpty,
+	extendCoordinate,
+	createOrUpdateFromCoordinate,
+	getCenter} from 'ol/extent.js';
 import { scale as scaleCoordinate, add as addCoordinate } from 'ol/coordinate.js';
 
 import GeometryCollection from 'ol/geom/GeometryCollection.js';
@@ -91,25 +94,21 @@ export default class Cluster extends BaseCluster {
 		if (this.resolution === undefined) {
 			return;
 		}
-		this.features.length = 0;
+		this.features = [];
 		const extent = createEmpty();
 		const mapDistance = this.distance * this.resolution;
 		const features = this.source.getFeatures();
 
-		/**
-		 * @type {!Object<string, boolean>}
-		 */
-		const clustered = {};
+		const clustered = new WeakSet();
 
-		for (let i = 0, ii = features.length; i < ii; i++) {
+		//for (let i = 0, ii = features.length; i < ii; i++) {
+		for (let i = features.length - 1; i >= 0; --i) {
 			const feature = features[i];
 
 			if (feature instanceof VehicleMarker || feature instanceof  TankMarker) {
 				if (feature.getImmutable() == true || feature.getVisibility() == false) {
-					
-					const uid = getUid(feature);
 
-					clustered[uid] = true;
+					clustered.add(feature);
 
 					if (feature.getImmutable() == true) {
 						this.features.push(feature);
@@ -119,19 +118,22 @@ export default class Cluster extends BaseCluster {
 				}
 			}
 
-
-			if (!(getUid(feature) in clustered)) {
+			if (clustered.has(feature) == false) {
 				const geometry = this.geometryFunction(feature);
 				if (geometry) {
 					const coordinates = geometry.getCoordinates();
-					createOrUpdateFromCoordinate(coordinates, extent);
+
+					createOrUpdateFromCoordinate(
+						coordinates,
+						extent);
+
 					buffer(extent, mapDistance, extent);
 
 					let neighbors = this.source.getFeaturesInExtent(extent);
 					neighbors = neighbors.filter(function (neighbor) {
-						const uid = getUid(neighbor);
-						if (!(uid in clustered)) {
-							clustered[uid] = true;
+
+						if (clustered.has(neighbor) == false) {
+							clustered.add(neighbor);
 							return true;
 						} else {
 							return false;
@@ -150,12 +152,17 @@ export default class Cluster extends BaseCluster {
 	}
 
 	createCluster(features) {
-		const length = features.length;
 
+		const length = features.length
 		let centroid = [0, 0];
 
-		for (let i = 0; i < length; i++) {
+		const extent = createEmpty();
+
+		for (let i = length - 1; i >= 0; --i) {
 			const geometry = this.geometryFunction(features[i]);
+
+			extendCoordinate(extent, geometry.getCoordinates());
+
 			if (geometry) {
 				addCoordinate(centroid, geometry.getCoordinates());
 			} else {
@@ -163,7 +170,7 @@ export default class Cluster extends BaseCluster {
 			}
 		}
 
-		scaleCoordinate(centroid, 1 / features.length);
+		scaleCoordinate(centroid, 1 / length);
 
 		let image;
 
@@ -175,13 +182,12 @@ export default class Cluster extends BaseCluster {
 			image = this.green
 		}
 
-
 		const style = new Style({
 			zIndex: 5,
 			image: image,
 			text: new Text({
 				font: "bold 12px Open Sans",
-				text: "" + length,
+				text: String(length),
 				textAlign: 'center',
 				textBaseline: 'middle',
 				fill: new Fill({
@@ -190,13 +196,22 @@ export default class Cluster extends BaseCluster {
 			})
 		});
 
+		const searchCenter = getCenter(extent);
+		const ratio = this.interpolationRatio;
+		const geometry = new Point([
+			centroid[0] * (1 - ratio) + searchCenter[0] * ratio,
+			centroid[1] * (1 - ratio) + searchCenter[1] * ratio,
+		]);
+
+		geometry.getExtent = ()=>{
+			return extent
+		};
+
 		const cluster = new Feature({
-			geometry: new Point(centroid)
+			geometry: geometry
 		});
 
-		cluster.set('features', features);
 		cluster.cluster = true;
-
 		cluster.setStyle(style);
 		return cluster;
 	}

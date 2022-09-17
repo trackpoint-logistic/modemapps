@@ -17,13 +17,16 @@ import OLOverlay from './ol-overlay';
 import OLLayerVector from './ol-layer-vector';
 
 
-
+import {boundingExtent} from 'ol/extent.js';
 import Feature from 'ol/Feature.js';
 import Point from 'ol/geom/Point.js';
 
-const ol = {};
+const ol = {
+	fromLonLat: fromLonLat,
+	boundingExtent: boundingExtent
+};
 
-ol.fromLonLat = fromLonLat;
+
 
 ol.trackpoint = {
 	TankMarker: TankMarker,

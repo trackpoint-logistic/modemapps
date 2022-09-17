@@ -43,16 +43,27 @@
 				layer.setVisible(true);
 
 				const features = [];
-				const vehicle = new ol.trackpoint.VehicleMarker({
+				const vehicle1 = new ol.trackpoint.VehicleMarker({
 					type:         'BLACK',
 					displayArrow: true,
 					direction:    0,
-					label:        '123',
-					ll:           [0,0],
+					label:        '1',
+					ll:           ol.fromLonLat([24.17056934104883,56.97212680217972]),
 					tail:         true
 				});
 
-				features.push(vehicle)
+				const vehicle2 = new ol.trackpoint.VehicleMarker({
+					type:         'BLACK',
+					displayArrow: true,
+					direction:    0,
+					label:        '2',
+					ll:           ol.fromLonLat([24.171599960947447, 56.97455965351052]),
+					tail:         true
+				});
+
+				features.push(vehicle1);
+				features.push(vehicle2);
+
 
 				dataset.addFeatures(features);
 
@@ -64,6 +75,11 @@
 					const is_feature = map.forEachFeatureAtPixel(event.pixel, function(feature, layer) {
 
 						if (layer) {
+							const extent = feature.getGeometry().getExtent();
+
+							map.getView().fit(extent, {
+								padding: [200, 200, 200, 200]
+							});
 							return true;
 						}
 					});
