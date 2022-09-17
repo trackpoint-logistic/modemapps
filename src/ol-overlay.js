@@ -15,9 +15,16 @@ class OLOverlay extends HTMLElement {
             return;
         }
 
+        const fragment = document.createDocumentFragment();
+
+        while(this.firstElementChild){
+            fragment.appendChild(this.firstElementChild);
+        }
+
+        this.overlay.setElement(fragment);
+
         const map = this.parentElement.getMap();
         map.addOverlay(this.overlay);
-        this.overlay.setElement(this);
     }
 
     setProperties(properties){
@@ -26,6 +33,10 @@ class OLOverlay extends HTMLElement {
 
     setPosition(position) {
         this.overlay.setPosition(position);
+    }
+
+    getElement(){
+        this.overlay.getElement();
     }
 
     close(){
