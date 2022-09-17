@@ -5,12 +5,12 @@ class OLOverlay extends HTMLElement {
         super();
 
         this.map = this.parentElement.getMap();
-
-        this.overlay = new Overlay({
-            element: this
-        });
-
+        this.overlay = new Overlay({});
         this.map.addOverlay(this.overlay);
+    }
+
+    connectedCallback(){
+        this.overlay.setElement(this);
     }
 
     setProperties(properties){

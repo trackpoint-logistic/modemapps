@@ -76,7 +76,7 @@
 				map.on("click", function(event) {
 					const is_feature = map.forEachFeatureAtPixel(event.pixel, function(feature, layer) {
 						if (layer) {
-							map.getOverlayById('test').setPosition(ol.fromLonLat([24.171599960947447, 56.97455965351052]));
+							//map.getOverlayById('test').setPosition(ol.fromLonLat([24.171599960947447, 56.97455965351052]));
 							//document.getElementById('overlay')
 							const extent = feature.getGeometry().getExtent();
 
