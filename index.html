@@ -26,7 +26,7 @@
 			<ol-tile-osm></ol-tile-osm>
 
 			<ol-layer-vector id="vector"/>
-			<ol-overlay id="overlay">
+			<ol-overlay id="overlay" hidden="true">
 				<p>Some teks</p>
 				<p>Some teks</p>
 				<p>Some teks</p>
@@ -75,11 +75,22 @@
 
 
 				const map = element.getMap();
+				const overlay = document.getElementById('overlay')
+
+				overlay.getOverlayContainer().classList.add('ol-popup')
+				overlay.setProperties({
+					autoPan: false,
+					stopEvent: false,
+					positioning: 'center-center',
+					offset: [109, -150]
+				});
 
 				map.on("click", function(event) {
 					const is_feature = map.forEachFeatureAtPixel(event.pixel, function(feature, layer) {
 						if (layer) {
-							//map.getOverlayById('test').setPosition(ol.fromLonLat([24.171599960947447, 56.97455965351052]));
+							overlay.setPosition(ol.fromLonLat([24.17056934104883,56.97212680217972]));
+
+							//
 							//document.getElementById('overlay')
 							const extent = feature.getGeometry().getExtent();
 

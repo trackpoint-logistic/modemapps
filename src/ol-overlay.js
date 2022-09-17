@@ -4,6 +4,7 @@ class OLOverlay extends HTMLElement {
     constructor() {
         super();
         this.overlay = new Overlay({});
+        this.hidden=true
     }
 
     connectedCallback(){
@@ -35,8 +36,8 @@ class OLOverlay extends HTMLElement {
         this.overlay.setPosition(position);
     }
 
-    getElement(){
-        this.overlay.getElement();
+    getOverlayContainer(){
+        return this.overlay.element;
     }
 
     close(){
