@@ -10,7 +10,7 @@
     "path": "^0.12.7",
     "sass": "^1.26.10",
     "stream": "^0.0.2",
-    "webpack": "5.74.0"
+    "webpack": "5.76.0"
   },
   "scripts": {
     "build": "gulp",
