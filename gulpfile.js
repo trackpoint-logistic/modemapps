@@ -2,6 +2,7 @@ const { src, dest, task, series } = require('gulp');
 
 const webpack = require('webpack');
 const sass = require('sass');
+const gulp_sass = require('gulp-sass')(sass);
 
 const Transform = require('stream').Transform;
 const HTMLParser = require('node-html-parser');
@@ -11,11 +12,12 @@ const path = require('path')
 const WEBPACK_OPTION = {
 	//devtool: 'source-map',
 	mode: 'production',
+	//mode: 'development',
 	optimization: {
 		concatenateModules: true,
 	},
 	output: {
-		path: path.resolve('./build'),
+		path: path.resolve('./'),
 		filename: 'ol.js',
 		library: 'ol',
 		libraryTarget: 'window',
@@ -25,9 +27,9 @@ const WEBPACK_OPTION = {
 
 const SASS_OPTION = {
 	sourceComments: false,
-	outputStyle: "compressed",
+	// outputStyle: "compressed",
 	//outputStyle: "expanded",
-	includePaths: ["node_modules"]
+	includePaths: ["./node_modules"]
 };
 
 
@@ -108,18 +110,28 @@ task('html', function () {
 		.pipe(dest('./build'));
 });
 
+task('css', function () {
+	return src('src/*.css', { sourcemaps: true })
+		.pipe(gulp_sass(SASS_OPTION))
+		.pipe(concat('ol.css'))
+		.pipe(dest('./'));
+});
+
+
 task('openlayer', function () {
 	return src('src/*.js')
 		.pipe(openlayer());
 });
 
 task('resources', function () {
-	return src('src/resources/*.{gif,jpg,png,svg}')
+	return src('assets/*.{gif,jpg,png,svg}')
 		.pipe(dest('./build'));
 });
 
 
 exports.default = series(
-	'html',
+	/*'html',*/
+	'css',
 	'openlayer',
-	'resources');
+	/*'resources'*/
+	);

@@ -15,6 +15,7 @@ class OLTileLayerMaptiler extends HTMLElement {
             title: this.getTitle(),
             visible: this.getVisible(),
             source: new ol.source.TileJSON({
+                //TODO pomenjat na url
                 url: 'https://api.maptiler.com/maps/basic/tiles.json?key='.concat(key),
                 tileSize: 512,
                 crossOrigin: 'anonymous'

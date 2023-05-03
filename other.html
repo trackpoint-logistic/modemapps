@@ -1,57 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-
-		<style>
-			.map {
-				width: 100%;
-				height:100%;
-				display: block;
-				position: absolute;
-				box-sizing: border-box;
-			}
-		</style>
-
-		<!-- <link rel="stylesheet" href="build/ol.css"> -->
-		<link href="ol.css" rel="preload" as="style"/>
-		<script src="ol.js"></script>
-
-		<!-- <include src="build/ol.html"/> -->
-
-	</head>
-
-	<body>
-		<ol-map id="map" class="map">
-			<select style="position:absolute;right:15px;top:15px;z-index:999" class="x-dropdown" style="width:100%;">
+<!-- 
+			<select style="position:absolute;right:15px;top:15px;z-index:999" slot="map-viewport" class="x-dropdown" style="width:100%;">
 				<option>Maptiler CLOUD</option>
 			</select>
 
 			<ol-tile-osm></ol-tile-osm>
-			
-			<ol-layer-vector id="vector"/>
 
+			<ol-layer-vector id="vector"/>
 			<ol-overlay id="overlay" hidden="true">
 				<p>Some teks</p>
 				<p>Some teks</p>
 				<p>Some teks</p>
 				<p>Some teks</p>
 			</ol-overlay>
- 
-		</ol-map>
-		<script>
-			document.addEventListener("DOMContentLoaded", function(){
+			 -->
 
+
+<script>
+			document.addEventListener("DOMContentLoaded", function(){
+				return;
 				const element = document.getElementById('vector')
 				const layer = element.getLayer()
 
 				const dataset = new ol.source.Vector({features: []});
 
-
 				layer.setSource(new ol.source.Cluster({
 					distance: 35,
 					source: dataset
 				}));
-
 				layer.setVisible(true);
 
 				const features = [];
@@ -79,11 +54,12 @@
 
 				dataset.addFeatures(features);
 
-				//return;
+
 
 				const map = element.getMap();
 				const overlay = document.getElementById('overlay')
 
+				//overlay.getOverlayContainer().classList.add('ol-popup')
 				overlay.setProperties({
 					autoPan: false,
 					stopEvent: false,
@@ -92,35 +68,23 @@
 				});
 
 				map.on("click", function(event) {
-					const is_feature = map.forEachFeatureAtPixel(event.pixel, (feature, layer) => {
-						if (!layer) {
-							return;
-						}
-
-						if(overlay.isVisible()){
-							overlay.close();
-						}else{
+					const is_feature = map.forEachFeatureAtPixel(event.pixel, function(feature, layer) {
+						if (layer) {
 							overlay.setPosition(ol.fromLonLat([24.17056934104883,56.97212680217972]));
+
+							//
+							//document.getElementById('overlay')
+							const extent = feature.getGeometry().getExtent();
+
+							map.getView().fit(extent, {
+								padding: [200, 200, 200, 200]
+							});
+							return true;
 						}
-						
-
-						//
-						//document.getElementById('overlay')
-						const extent = feature.getGeometry().getExtent();
-
-						map.getView().fit(extent, {
-							padding: [200, 200, 200, 200]
-						});
-
-						return true;
-
 					});
 
-					//console.log(is_feature);
+					console.log(is_feature);
 				});
 
 			});
 		</script>
-
-	</body>
-</html>

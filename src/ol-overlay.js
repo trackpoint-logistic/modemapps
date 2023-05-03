@@ -4,7 +4,7 @@ class OLOverlay extends HTMLElement {
     constructor() {
         super();
         this.overlay = new Overlay({});
-        this.hidden=true
+        //this.hidden = true
     }
 
     connectedCallback(){
@@ -16,18 +16,19 @@ class OLOverlay extends HTMLElement {
             return;
         }
 
-        this.getOverlayContainer().classList.add('ol-popup');
+        requestAnimationFrame(()=>{
+            const fragment = document.createDocumentFragment();
 
-        const fragment = document.createDocumentFragment();
-
-        while(this.firstElementChild){
-            fragment.appendChild(this.firstElementChild);
-        }
-
-        this.overlay.setElement(fragment);
+            while(this.firstElementChild){
+                fragment.appendChild(this.firstElementChild);
+            }
+    
+            this.overlay.setElement(fragment);
+        });
 
         const map = this.parentElement.getMap();
         map.addOverlay(this.overlay);
+        this.overlay?.element?.classList.add('ol-popup');
     }
 
     setProperties(properties){
@@ -38,12 +39,16 @@ class OLOverlay extends HTMLElement {
         this.overlay.setPosition(position);
     }
 
-    getOverlayContainer(){
-        return this.overlay.element;
-    }
+    // getOverlayContainer(){
+    //     return this.overlay.element;
+    // }
 
     close(){
         this.overlay.setPosition(undefined);
+    }
+
+    isVisible(){
+        return this.overlay.getPosition() != undefined;
     }
 
 }

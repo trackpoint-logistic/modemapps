@@ -5,8 +5,9 @@
   "devDependencies": {
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
+    "gulp-sass": "^5.1.0",
     "node-html-parser": "^1.2.20",
-    "ol": "6.15.1",
+    "ol": "7.3.0",
     "path": "^0.12.7",
     "sass": "^1.26.10",
     "stream": "^0.0.2",
