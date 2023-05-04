@@ -17,12 +17,12 @@ import GeometryCollection from 'ol/geom/GeometryCollection.js';
  * @api
  */
 const MarkerType = {
-	"YELLOW": "assets/mark-yellow.png",
-	"RED": "assets/mark-red.png",
-	"MAGENTA": "assets/mark-magenta.png",
-	"GREEN": "assets/mark-green.png",
-	"BLUE": "assets/mark-blue.png",
-	"BLACK": "assets/mark-black.png"
+	"YELLOW": "./assets/mark-yellow.png",
+	"RED": "./assets/mark-red.png",
+	"MAGENTA": "./assets/mark-magenta.png",
+	"GREEN": "./assets/mark-green.png",
+	"BLUE": "./assets/mark-blue.png",
+	"BLACK": "./assets/mark-black.png"
 };
 
 
