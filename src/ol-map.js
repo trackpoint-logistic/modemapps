@@ -19,7 +19,7 @@ class OLMap extends HTMLElement {
 		//target.appendChild(slot);
 
 		const style = document.createElement('style');
-		style.append(document.createTextNode('@import url("./ol.css");'));
+		style.append(document.createTextNode('@import url("/libs/modemapps/ol.css");'));
 
 		shadow.append(style, slot, target);
 		// shadow.adoptedStyleSheets = [
