@@ -17,6 +17,10 @@ class OLLayerVector extends HTMLElement {
         return this.layer;
     }
 
+    getSource(){
+        return this.layer.getSource()
+    }
+
     getMap(){
         return this.parentElement.getMap()
     }
