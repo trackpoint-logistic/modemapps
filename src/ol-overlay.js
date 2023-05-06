@@ -31,6 +31,10 @@ class OLOverlay extends HTMLElement {
         this.overlay?.element?.classList.add('ol-popup');
     }
 
+    getOverlayContainer(){
+        return this.overlay?.element;
+    }
+
     setProperties(properties){
         this.overlay.setProperties(properties, true);
     }
