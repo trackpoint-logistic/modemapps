@@ -15,6 +15,10 @@ class OLLayerVector extends HTMLElement {
         this.layer.setVisible(visible);
     }
 
+    isVisible(){
+        return this.layer.getVisible();
+    }
+    
     getLayer(){
         return this.layer;
     }

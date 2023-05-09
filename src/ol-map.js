@@ -16,20 +16,13 @@ class OLMap extends HTMLElement {
 		});
 
 		const slot = document.createElement('slot');
-		//target.appendChild(slot);
 
 		const style = document.createElement('style');
 		style.append(document.createTextNode('@import url("/libs/modemapps/ol.css");'));
 
 		shadow.append(style, slot, target);
-		// shadow.adoptedStyleSheets = [
-		// 	//styles
-		// 	//OLMap.getStyle()
-		// ];
 
 		this.map = new Map({
-			//target: shadow.getElementById('map'),
-
 			loadTilesWhileAnimating: false,
 			loadTilesWhileInteracting: false,
 			renderer: 'canvas',
@@ -63,6 +56,28 @@ class OLMap extends HTMLElement {
 
 	getMap(){
 		return this.map;
+	}
+
+
+	fitByExtend(extent){
+        if (!extent ||
+            extent[0] === Infinity ||
+            extent[1] === Infinity ||
+            extent[2] === Infinity ||
+            extent[3] === Infinity) {
+            return;
+        }
+
+        const view = this.map.getView();
+        const level = view.getZoom();
+        const zoom = level > 13 
+			? level 
+			: 13;
+
+        view.fit(extent, this.map.getSize(), {
+            padding: [20, 20, 20, 20],
+            maxZoom: zoom
+        });
 	}
 }
 
