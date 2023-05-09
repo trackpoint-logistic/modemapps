@@ -26,16 +26,10 @@ class OLTileLayerOSM extends HTMLElement {
 		this.layer.setSource(source)
 	}
 
-	getMaxZoom(){
-		return this.getAttribute('max-zoom') || 13;
-	}
-
 	connectedCallback(){
 		if (this.isConnected == false) {
 			return;
 		}
-
-		this.layer.setMaxZoom(this.getMaxZoom());
 
 		const map = this.parentElement.getMap();
 		map.addLayer(this.layer);

@@ -41,9 +41,29 @@ class OLMap extends HTMLElement {
 		});
 	}
 
+	getMaxZoom(){
+		return Number.parseInt(this.getAttribute('max-zoom'));
+	}
+
+	getMinZoom(){
+		return Number.parseInt(this.getAttribute('min-zoom'));
+	}
+
 	connectedCallback(){
 		if (this.isConnected == false) {
 			return;
+		}
+
+		const view = this.map.getView();
+
+		const max_zoom = this.getMaxZoom();
+		if(max_zoom){
+			view.setMaxZoom(max_zoom);
+		}
+
+		const min_zoom = this.getMinZoom();
+		if(min_zoom){
+			view.setMinZoom(min_zoom);
 		}
 
 		//Dobavit resize
