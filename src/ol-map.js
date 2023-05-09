@@ -56,28 +56,6 @@ class OLMap extends HTMLElement {
 	getMap(){
 		return this.map;
 	}
-
-
-	fitByExtend(extent){
-        if (!extent ||
-            extent[0] === Infinity ||
-            extent[1] === Infinity ||
-            extent[2] === Infinity ||
-            extent[3] === Infinity) {
-            return;
-        }
-
-        const view = this.map.getView();
-        const level = view.getZoom();
-        const zoom = level > 13 
-			? level 
-			: 13;
-
-        view.fit(extent, this.map.getSize(), {
-            padding: [20, 20, 20, 20],
-            maxZoom: zoom
-        });
-	}
 }
 
 export default OLMap;
