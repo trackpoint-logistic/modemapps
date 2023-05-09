@@ -7,7 +7,6 @@ class OLMap extends HTMLElement {
 		super();
 
 		const shadow = this.attachShadow({ mode: 'open' });
-		//const tempalte = document.getElementById('ol-style').content;
 
 		const target = document.createElement('div');
 		Object.assign(target.style,{
