@@ -3,8 +3,6 @@ import Vector from 'ol/layer/Vector';
 class OLLayerVector extends HTMLElement {
     constructor() {
         super();
-        
-        this.source = null;
 
         this.layer = new Vector({
             visible: false
@@ -19,16 +17,16 @@ class OLLayerVector extends HTMLElement {
         return this.layer.getVisible();
     }
     
-    getLayer(){
-        return this.layer;
+    setSource(source){
+        return this.layer.setSource(source);
     }
 
     getSource(){
-        return this.source;
+        return this.layer.getSource();
     }
-    
-    setSource(source){
-        return this.source = source
+
+    getLayer(){
+        return this.layer;
     }
     
     getMap(){
