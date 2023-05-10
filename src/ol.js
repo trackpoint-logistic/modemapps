@@ -1,6 +1,8 @@
 import LayerVector from 'ol/layer/Vector';
 import SourceVector from 'ol/source/Vector';
 import {fromLonLat} from 'ol/proj';
+import Select from 'ol/interaction/Select.js';
+
 import SourceCluster from './extent/Cluster.js';
 
 import TankMarker from './extent/TankMarker';
@@ -18,28 +20,26 @@ import OLLayerVector from './ol-layer-vector';
 
 
 import {boundingExtent} from 'ol/extent.js';
-import Feature from 'ol/Feature.js';
-import Point from 'ol/geom/Point.js';
+//import Feature from 'ol/Feature.js';
+//import Point from 'ol/geom/Point.js';
 
 const ol = {
 	fromLonLat: fromLonLat,
-	boundingExtent: boundingExtent
-};
-
-
-
-ol.trackpoint = {
-	TankMarker: TankMarker,
-	VehicleMarker: VehicleMarker
-};
-
-ol.source = {
-	Vector: SourceVector,
-	Cluster: SourceCluster
-};
-
-ol.layer = {
-	Vector: LayerVector
+	boundingExtent: boundingExtent,
+	trackpoint: {
+		TankMarker: TankMarker,
+		VehicleMarker: VehicleMarker
+	},
+	source: {
+		Vector: SourceVector,
+		Cluster: SourceCluster
+	},
+	layer: {
+		Vector: LayerVector
+	},
+	interaction:{
+		Select: Select
+	}
 };
 
 //ol.Feature = Feature;
