@@ -26,7 +26,7 @@ class OLOverlay extends HTMLElement {
             this.overlay.setElement(fragment);
         });
 
-        const map = this.parentElement.getMap();
+        const map = this.getMap();
         map.addOverlay(this.overlay);
         this.overlay?.element?.classList.add('ol-popup');
     }
@@ -43,16 +43,16 @@ class OLOverlay extends HTMLElement {
         this.overlay.setPosition(position);
     }
 
-    // getOverlayContainer(){
-    //     return this.overlay.element;
-    // }
-
     close(){
         this.overlay.setPosition(undefined);
     }
 
     isVisible(){
         return this.overlay.getPosition() != undefined;
+    }
+
+    getMap(){
+        return this.parentElement.getMap();
     }
 
 }
