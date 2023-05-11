@@ -10,7 +10,7 @@ class OLTileLayerOSM extends HTMLElement {
 			preload: Infinity,
 			type: 'base',
 			title: this.getTitle(),
-			source: new OSM()
+			source: new OSM({attributions:[]})
 		});
 	}
 

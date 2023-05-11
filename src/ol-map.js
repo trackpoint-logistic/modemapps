@@ -1,16 +1,19 @@
 import Map from 'ol/Map';
 import View from 'ol/View';
-import {defaults} from 'ol/interaction/defaults';
+import {defaults as defaultsInteraction} from 'ol/interaction/defaults';
+import {defaults as defaultControls} from 'ol/control.js';
 
 class OLMap extends HTMLElement {
-
+	#map;
+	#element;
 	constructor() {
 		super();
 
-		const shadow = this.attachShadow({ mode: 'open' });
-
-		const target = document.createElement('div');
-		Object.assign(target.style,{
+		const shadow = this.attachShadow({ mode: 'closed' });
+		//console.log(shadow);
+		//{ mode: "closed" }
+		this.#element = document.createElement('div');
+		Object.assign(this.#element.style,{
 			width: '100%;',
 			height: '100%'
 		});
@@ -20,15 +23,20 @@ class OLMap extends HTMLElement {
 		const style = document.createElement('style');
 		style.append(document.createTextNode('@import url("/libs/modemapps/ol.css");'));
 
-		shadow.append(style, slot, target);
+		shadow.append(style, slot, this.#element);
 
-		this.map = new Map({
+		this.#map = new Map({
 			loadTilesWhileAnimating: false,
 			loadTilesWhileInteracting: false,
 			renderer: 'canvas',
-			interactions: defaults({
+			controls: defaultControls({
+				attributions: false,
+				rotate: false
+			}),
+			interactions: defaultsInteraction({
 				doubleClickZoom: false,
-				altShiftDragRotate: false
+				altShiftDragRotate: false,
+				pinchRotate: false
 			}),
 			view: new View({
 				constrainResolution: false,
@@ -58,7 +66,7 @@ class OLMap extends HTMLElement {
 			return;
 		}
 
-		const view = this.map.getView();
+		const view = this.#map.getView();
 
 		const max_zoom = this.getMaxZoom();
 		if(max_zoom){
@@ -73,12 +81,12 @@ class OLMap extends HTMLElement {
 		//Dobavit resize
 		//https://developer.mozilla.org/en-US/docs/Web/API/Resize_Observer_API
 
-		this.map.setTarget(this.shadowRoot.lastElementChild);
-		this.map.updateSize();
+		this.#map.setTarget(this.#element);
+		this.#map.updateSize();
 	}
 
 	getMap(){
-		return this.map;
+		return this.#map;
 	}
 }
 
