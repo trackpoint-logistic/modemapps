@@ -1,5 +1,6 @@
 import Map from 'ol/Map';
 import View from 'ol/View';
+import defaults from 'ol/interaction/defaults';
 
 class OLMap extends HTMLElement {
 
@@ -25,7 +26,10 @@ class OLMap extends HTMLElement {
 			loadTilesWhileAnimating: false,
 			loadTilesWhileInteracting: false,
 			renderer: 'canvas',
-
+			interactions: defaults({
+				doubleClickZoom: false,
+				altShiftDragRotate: false
+			}),
 			view: new View({
 				constrainResolution: false,
 				smoothExtentConstraint: false,
