@@ -1,6 +1,6 @@
 import Map from 'ol/Map';
 import View from 'ol/View';
-import defaults from 'ol/interaction/defaults';
+import {defaults} from 'ol/interaction/defaults';
 
 class OLMap extends HTMLElement {
 
