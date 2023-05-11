@@ -116,7 +116,7 @@ export default class TankMarker extends Feature {
 			return undefined;
 		}
 
-		return  super.getGeometry();
+		return super.getGeometry();
 	};
 
 	/**

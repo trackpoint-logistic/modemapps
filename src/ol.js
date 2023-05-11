@@ -21,11 +21,14 @@ import OLLayerVector from './ol-layer-vector';
 
 import {boundingExtent} from 'ol/extent.js';
 //import Feature from 'ol/Feature.js';
-//import Point from 'ol/geom/Point.js';
+import Point from 'ol/geom/Point.js';
 
 const ol = {
 	fromLonLat: fromLonLat,
 	boundingExtent: boundingExtent,
+
+	Point: Point,
+
 	trackpoint: {
 		TankMarker: TankMarker,
 		VehicleMarker: VehicleMarker
@@ -41,9 +44,6 @@ const ol = {
 		Select: Select
 	}
 };
-
-//ol.Feature = Feature;
-//ol.Point = Point;
 
 customElements.define('ol-map', OLMap);
 

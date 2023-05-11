@@ -139,8 +139,6 @@ export default class VehicleMarker extends Feature {
 		this.stylize();
 	}
 
-
-
 	/**
 	 * @api
 	 */
@@ -157,6 +155,7 @@ export default class VehicleMarker extends Feature {
 
 		this.changed();
 	};
+
 
 
 	/**
@@ -255,15 +254,7 @@ export default class VehicleMarker extends Feature {
 		this.changed();
 	};
 
-	/**
-	 * @api
-	 */
-	/*
-	ol.trackpoint.Marker.prototype.setSelected=function(v){
-		this.pin_.setSelected(v);
-		this.changed();
-	};
-	*/
+
 	/**
 	 * @api
 	 */

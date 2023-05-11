@@ -26,9 +26,7 @@ class OLOverlay extends HTMLElement {
             this.overlay.setElement(fragment);
         });
 
-        const map = this.getMap();
-        map.addOverlay(this.overlay);
-        this.overlay?.element?.classList.add('ol-popup');
+        this.getMap()?.addOverlay(this.overlay);
     }
 
     getOverlayContainer(){
@@ -52,7 +50,7 @@ class OLOverlay extends HTMLElement {
     }
 
     getMap(){
-        return this.parentElement.getMap();
+        return this.parentElement?.getMap();
     }
 
 }

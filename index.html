@@ -30,7 +30,7 @@
 			
 			<ol-layer-vector id="vector"/>
 
-			<ol-overlay id="overlay" hidden="true">
+			<ol-overlay id="overlay">
 				<p>Some teks</p>
 				<p>Some teks</p>
 				<p>Some teks</p>
@@ -47,39 +47,46 @@
 				const dataset = new ol.source.Vector({features: []});
 
 
-				layer.setSource(new ol.source.Cluster({
-					distance: 35,
-					source: dataset
-				}));
+				// layer.setSource(new ol.source.Cluster({
+				// 	distance: 35,
+				// 	source: dataset
+				// }));
+
+				layer.setSource(dataset);
+
 
 				layer.setVisible(true);
 
 				const features = [];
-				const vehicle1 = new ol.trackpoint.VehicleMarker({
-					type:         'BLACK',
-					displayArrow: true,
-					direction:    0,
-					label:        '1',
-					ll:           ol.fromLonLat([24.17056934104883,56.97212680217972]),
-					tail:         true
-				});
+				const assets = [
+					{
+						id: 0,
+						ll: ol.fromLonLat([24.12056234104883,56.92272680217972]),
+					},
+					{
+						id: 1,
+						ll: ol.fromLonLat([24.17056934104883,56.97212680217972]),
+					},
+				];
 
-				const vehicle2 = new ol.trackpoint.VehicleMarker({
-					type:         'BLACK',
-					displayArrow: true,
-					direction:    0,
-					label:        '2',
-					ll:           ol.fromLonLat([24.171599960947447, 56.97455965351052]),
-					tail:         true
-				});
+				for(const asset of assets){
+					console.log(asset);
 
-				features.push(vehicle1);
-				features.push(vehicle2);
+					const vehicle = new ol.trackpoint.VehicleMarker({
+						type:         'BLACK',
+						displayArrow: true,
+						direction:    0,
+						label:        '(' + String(asset.id) + ')',
+						ll:           asset.ll,
+						tail:         false
+					});
 
+					vehicle.setId(asset.id);
+					features.push(vehicle);
+				}
 
+				console.log(features);
 				dataset.addFeatures(features);
-
-				//return;
 
 				const map = element.getMap();
 				const overlay = document.getElementById('overlay')
@@ -88,35 +95,38 @@
 					autoPan: false,
 					stopEvent: false,
 					positioning: 'center-center',
-					offset: [109, -150]
+					offset: [93, -150]
 				});
 
+				console.log(overlay.getOverlayContainer());
+
 				map.on("click", function(event) {
-					const is_feature = map.forEachFeatureAtPixel(event.pixel, (feature, layer) => {
-						if (!layer) {
-							return;
-						}
+					console.log('map click');
 
+					const feature = map.forEachFeatureAtPixel(event.pixel,(feature, layer)=>{
+						return feature;
+					});
+					
+					if(!feature){
 						if(overlay.isVisible()){
+							console.log('overlay.close');
 							overlay.close();
-						}else{
-							overlay.setPosition(ol.fromLonLat([24.17056934104883,56.97212680217972]));
 						}
-						
 
-						//
-						//document.getElementById('overlay')
-						const extent = feature.getGeometry().getExtent();
+						return;
+					}
 
-						map.getView().fit(extent, {
-							padding: [200, 200, 200, 200]
-						});
+					const asset = assets[feature.getId()];
+					//console.log(feature);
+					//console.log(asset, feature.getId());
+					console.log('overlay setPosition');
+					overlay.setPosition(asset.ll);
 
-						return true;
-
+					const extent = feature.getGeometry().getExtent();
+					map.getView().fit(extent, {
+						padding: [20, 20, 20, 20]
 					});
 
-					//console.log(is_feature);
 				});
 
 			});
