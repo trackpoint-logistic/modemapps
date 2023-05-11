@@ -1,10 +1,10 @@
 import Overlay from 'ol/Overlay';
 
 class OLOverlay extends HTMLElement {
+
     constructor() {
         super();
         this.overlay = new Overlay({});
-        //this.hidden = true
     }
 
     connectedCallback(){
@@ -16,17 +16,11 @@ class OLOverlay extends HTMLElement {
             return;
         }
 
-        requestAnimationFrame(()=>{
-            const fragment = document.createDocumentFragment();
-
-            while(this.firstElementChild){
-                fragment.appendChild(this.firstElementChild);
-            }
-    
-            this.overlay.setElement(fragment);
-        });
-
+        const slot = document.createElement("slot");
+        this.overlay.setElement(slot);
         this.getMap()?.addOverlay(this.overlay);
+
+        slot.assign(this);
     }
 
     getOverlayContainer(){
@@ -35,10 +29,6 @@ class OLOverlay extends HTMLElement {
 
     setProperties(properties){
         this.overlay.setProperties(properties, true);
-    }
-
-    setStyle(style){
-        Object.assign(this.overlay.element.style, style);
     }
 
     setPosition(position) {

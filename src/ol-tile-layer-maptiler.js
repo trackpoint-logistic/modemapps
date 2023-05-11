@@ -6,6 +6,8 @@ class OLTileLayerMaptiler extends HTMLElement {
     constructor() {
         super();
 
+        this.hidden = true;
+
         const key = this.getAttribute('key');
         this.removeAttribute('key');
 

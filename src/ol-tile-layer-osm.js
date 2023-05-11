@@ -30,7 +30,7 @@ class OLTileLayerOSM extends HTMLElement {
 		if (this.isConnected == false) {
 			return;
 		}
-
+		this.hidden = true;
 		const map = this.parentElement.getMap();
 		map.addLayer(this.layer);
 	}

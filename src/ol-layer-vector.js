@@ -38,6 +38,8 @@ class OLLayerVector extends HTMLElement {
             return;
         }
 
+        this.hidden = true;
+
         const map = this.parentElement.getMap();
         map.addLayer(this.layer);
     }

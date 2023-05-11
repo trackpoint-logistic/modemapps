@@ -9,7 +9,12 @@ class OLMap extends HTMLElement {
 	constructor() {
 		super();
 
-		const shadow = this.attachShadow({ mode: 'closed' });
+		const shadow = this.attachShadow({
+			mode: 'closed',
+			slotAssignment: 'manual'
+		});
+
+		//slotAssignment
 		//console.log(shadow);
 		//{ mode: "closed" }
 		this.#element = document.createElement('div');
@@ -18,12 +23,15 @@ class OLMap extends HTMLElement {
 			height: '100%'
 		});
 
-		const slot = document.createElement('slot');
+		//const slot = document.createElement('slot');
 
 		const style = document.createElement('style');
 		style.append(document.createTextNode('@import url("/libs/modemapps/ol.css");'));
 
-		shadow.append(style, slot, this.#element);
+		shadow.append(
+			style,
+			//slot,
+			this.#element);
 
 		this.#map = new Map({
 			loadTilesWhileAnimating: false,

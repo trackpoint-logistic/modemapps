@@ -22,10 +22,11 @@
 
 	<body>
 		<ol-map id="map" class="map" max-zoom="16" min-zoom="2">
+<!--
 			<select style="position:absolute;right:15px;top:15px;z-index:999" class="x-dropdown" style="width:100%;">
 				<option>Maptiler CLOUD</option>
 			</select>
-
+-->
 			<ol-tile-osm></ol-tile-osm>
 			
 			<ol-layer-vector id="vector"/>
@@ -36,12 +37,13 @@
 				<p>Some teks</p>
 				<p>Some teks</p>
 			</ol-overlay>
- 
+
 		</ol-map>
 		<script>
 			document.addEventListener("DOMContentLoaded", function(){
 
-				const element = document.getElementById('vector')
+				const element = document.getElementById('vector');
+
 				const layer = element.getLayer()
 
 				const dataset = new ol.source.Vector({features: []});
