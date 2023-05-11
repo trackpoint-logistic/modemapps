@@ -37,6 +37,10 @@ class OLOverlay extends HTMLElement {
         this.overlay.setProperties(properties, true);
     }
 
+    setStyle(style){
+        Object.assign(this.overlay.element.style, style);
+    }
+
     setPosition(position) {
         this.overlay.setPosition(position);
     }
